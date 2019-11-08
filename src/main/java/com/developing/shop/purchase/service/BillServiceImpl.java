@@ -25,7 +25,8 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public Bill getBillById(long id) {
-        return billRepository.findById(id).orElse(null);
+        return billRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No bill with id : " + id));
     }
 
     @Override
