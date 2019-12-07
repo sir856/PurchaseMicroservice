@@ -7,11 +7,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "bill")
 public class Bill {
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
 
+    @Id
     @Column
     private long orderId;
 
@@ -23,19 +20,20 @@ public class Bill {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column
+    private long price;
+
     @JsonCreator
-    public Bill(long orderId) {
+    public Bill(long orderId, long price) {
         this.orderId = orderId;
-        this.status = Status.COLLECTING;
+        this.status = Status.COLLECTED;
         this.cardAuthorizationInfo = CardStatus.UNAUTHORIZED;
+        this.price = price;
     }
 
-    public Bill(){}
-
-
-    public long getId() {
-        return id;
+    public Bill() {
     }
+
 
     public long getOrderId() {
         return orderId;
@@ -47,6 +45,10 @@ public class Bill {
 
     public CardStatus getCardAuthorizationInfo() {
         return cardAuthorizationInfo;
+    }
+
+    public long getPrice() {
+        return price;
     }
 
     public void setCardAuthorizationInfo(CardStatus cardAuthorizationInfo) {

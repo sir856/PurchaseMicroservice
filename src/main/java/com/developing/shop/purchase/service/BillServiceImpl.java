@@ -38,7 +38,7 @@ public class BillServiceImpl implements BillService {
     public Bill purchase(CardStatus cardStatus, long id) {
         Bill bill = getBillById(id);
 
-        if (bill.getStatus() == Status.COLLECTING) {
+        if (bill.getStatus() == Status.COLLECTED) {
             bill.setStatus(cardStatus == CardStatus.AUTHORIZED ? Status.PAID : Status.FAILED);
             bill.setCardAuthorizationInfo(cardStatus);
         }
@@ -53,7 +53,7 @@ public class BillServiceImpl implements BillService {
 
         switch (status) {
             case CANCELLED:
-                if (bill.getStatus() == Status.PAID) {
+                if (bill.getStatus() == Status.PAID || bill.getStatus() == Status.COLLECTED) {
                     bill.setStatus(status);
                 }
                 break;
