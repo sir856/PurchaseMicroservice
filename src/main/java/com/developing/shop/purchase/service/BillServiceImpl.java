@@ -69,6 +69,8 @@ public class BillServiceImpl implements BillService {
                 break;
         }
 
+        billRepository.save(bill);
+
         return bill;
     }
 }

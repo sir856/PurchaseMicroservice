@@ -1,6 +1,6 @@
 package com.developing.shop.purchase.listeners;
 
-import com.developing.shop.orders.model.Order;
+import com.developing.shop.purchase.listeners.data.MessageOrder;
 import com.developing.shop.purchase.model.Bill;
 import com.developing.shop.purchase.repository.BillRepository;
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ public class RabbitMqListener {
     }
 
     @RabbitListener(queues = "addOrder")
-    public void addOrder(Order order) {
-        repository.save(new Bill(order.getId(), order.getTotalCost()));
+    public void addOrder(MessageOrder order) {
+        repository.save(new Bill(order.getId(), order.getPrice()));
     }
 }

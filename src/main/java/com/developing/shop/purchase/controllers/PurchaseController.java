@@ -1,6 +1,6 @@
 package com.developing.shop.purchase.controllers;
 
-import com.developing.shop.orders.messageListeners.StatusChange;
+import com.developing.shop.orders.messageListeners.data.StatusChange;
 import com.developing.shop.purchase.model.Bill;
 import com.developing.shop.purchase.model.CardStatus;
 import com.developing.shop.purchase.model.Status;
