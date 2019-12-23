@@ -46,6 +46,11 @@ public class    PurchaseController {
     public Bill purchase(@PathVariable("order_id") long id, @RequestParam(name = "card") CardStatus cardStatus) {
         Bill bill = billService.purchase(cardStatus, id);
         setStatusChange(bill);
+        if (bill.getStatus() == Status.FAILED) {
+            template.setExchange("purchaseExchange");
+            template.convertAndSend("cancelItem", bill.getOrderId());
+            template.convertAndSend("cancelOrder", bill.getOrderId());
+        }
         return bill;
     }
 
@@ -56,9 +61,9 @@ public class    PurchaseController {
             template.setExchange("purchaseExchange");
             template.convertAndSend("cancelItem", bill.getOrderId());
             template.convertAndSend("cancelOrder", bill.getOrderId());
-        } else {
-            setStatusChange(bill);
         }
+
+        setStatusChange(bill);
 
         return bill;
     }
